@@ -1,0 +1,6 @@
+@UTEvents_HostAddress = http://localhost:5122
+
+GET {{UTEvents_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
