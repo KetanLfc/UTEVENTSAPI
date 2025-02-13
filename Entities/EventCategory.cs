@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace UTEvents.Entities

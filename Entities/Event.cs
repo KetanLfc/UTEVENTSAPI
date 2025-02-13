@@ -28,6 +28,9 @@ namespace UTEvents.Entities
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        public string ImageUrl { get; set; } = string.Empty;
+
+        [Required]
         public EventStatus Status { get; set; }
 
         [Required]

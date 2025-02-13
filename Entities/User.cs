@@ -1,31 +1,32 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
+﻿using System.ComponentModel.DataAnnotations;
+using UTEvents.Entities;
 
-namespace UTEvents.Entities
+public class User
 {
-    [Table("Users")]
-    public class User
-    {
-        [Key]
-        public Guid Id { get; set; }
+    [Key]
+    public Guid Id { get; set; }
 
-        [Required]
-        public Guid RoleId { get; set; }
+    [Required]
+    public Guid RoleId { get; set; }
 
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; } = string.Empty;
+    public Guid? GroupId { get; set; }
 
-        [Required]
-        public string Name { get; set; } = string.Empty;
+    [Required]
+    [EmailAddress]
+    public string Email { get; set; } = string.Empty;
 
-        public bool IsActive { get; set; }
+    [Required]
+    public string Name { get; set; } = string.Empty;
 
-        public bool EmailConfirmed { get; set; }
+    public bool IsActive { get; set; }
 
-        public virtual Role Role { get; set; } = null!;
+    public bool EmailConfirmed { get; set; }
 
-        public virtual ICollection<Event> Events { get; set; } = new List<Event>();
-    }
+    public string PasswordHash { get; set; } = string.Empty;
+
+    public virtual Role Role { get; set; } = null!;
+
+    public virtual Group? Group { get; set; }
+
+    public virtual ICollection<Event> Events { get; set; } = new List<Event>();
 }

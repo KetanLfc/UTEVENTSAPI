@@ -55,6 +55,10 @@ namespace UTEvents.Migrations
                     b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("LocationId")
                         .HasColumnType("uniqueidentifier");
 
@@ -147,7 +151,25 @@ namespace UTEvents.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("UTEvents.Entities.User", b =>
+            modelBuilder.Entity("UTEvents.Entities.UserEvent", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("RSVPStatus")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "EventId");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("UserEvents");
+                });
+
+            modelBuilder.Entity("User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -170,6 +192,10 @@ namespace UTEvents.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
@@ -180,24 +206,6 @@ namespace UTEvents.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("UTEvents.Entities.UserEvent", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("RSVPStatus")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "EventId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("UserEvents");
                 });
 
             modelBuilder.Entity("UTEvents.Entities.AllowedEventRole", b =>
@@ -230,7 +238,26 @@ namespace UTEvents.Migrations
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("UTEvents.Entities.User", b =>
+            modelBuilder.Entity("UTEvents.Entities.UserEvent", b =>
+                {
+                    b.HasOne("UTEvents.Entities.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("User", b =>
                 {
                     b.HasOne("UTEvents.Entities.Group", null)
                         .WithMany("Users")
@@ -243,25 +270,6 @@ namespace UTEvents.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("UTEvents.Entities.UserEvent", b =>
-                {
-                    b.HasOne("UTEvents.Entities.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UTEvents.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UTEvents.Entities.Event", b =>

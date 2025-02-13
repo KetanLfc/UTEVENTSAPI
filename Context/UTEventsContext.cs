@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Data;
-using System.Text.RegularExpressions;
 using UTEvents.Entities;
 
 namespace UTEvents.Context
