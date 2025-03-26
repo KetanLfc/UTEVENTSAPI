@@ -21,7 +21,9 @@ namespace UTEvents.Repositories
 
         public async Task<IEnumerable<Event>> GetAllEventsAsync()
         {
-            return await _context.Events.ToListAsync();
+            return await _context.Events
+        .Include(e => e.Location) // Eager-load the Location
+        .ToListAsync();
         }
 
         public async Task<bool> CreateEventAsync(Event newEvent)

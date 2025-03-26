@@ -8,6 +8,7 @@
         public Guid RoleId { get; init; }
         public Guid? GroupId { get; set; }
         public string RoleName { get; init; } = string.Empty;
-        public bool IsActive { get; init; } 
+        public bool IsActive { get; init; }
+        public bool EmailConfirmed { get; init; }
     }
 }

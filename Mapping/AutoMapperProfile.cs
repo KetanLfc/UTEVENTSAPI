@@ -18,8 +18,14 @@ namespace UTEvents.Mapping
 
             // User Mapping
             CreateMap<User, UserDto>()
-     .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.RoleName)) // Map RoleName from Role entity
-     .ReverseMap();
+      .ForMember(dest => dest.EmailConfirmed, opt => opt.MapFrom(src => src.EmailConfirmed))
+
+    // We already have this for RoleName:
+    .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.RoleName))
+
+    // Then let ReverseMap handle the reverse direction
+    .ReverseMap();
+
 
             CreateMap<UserRequest, User>();
 

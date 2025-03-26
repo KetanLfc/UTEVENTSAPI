@@ -100,6 +100,7 @@ namespace UTEvents.Services
             existingUser.RoleId = userRequest.RoleId;
             existingUser.GroupId = userRequest.GroupId;
             existingUser.IsActive = userRequest.IsActive;
+            existingUser.EmailConfirmed = userRequest.EmailConfirmed;
 
             // 3. If a new password was provided, re-hash and set it
             if (!string.IsNullOrEmpty(userRequest.Password))

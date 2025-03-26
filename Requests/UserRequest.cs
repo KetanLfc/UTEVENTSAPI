@@ -17,5 +17,8 @@ public record UserRequest
     public string Password { get; init; } = string.Empty; 
 
     public bool IsActive { get; init; }
+
+    public bool EmailConfirmed { get; init; }
+
     public Guid? GroupId { get; init; }
 }
